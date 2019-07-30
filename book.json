@@ -1,0 +1,21 @@
+{
+  "title": "laravel 测试驱动教程",
+  "author": "helbing",
+  "plugins": [
+    "katex",
+    "github",
+    "search-plus",
+    "copy-code-button",
+    "expandable-chapters-small",
+    "splitter"
+  ],
+  "pluginsConfig": {
+    "github": {
+      "url": "https://github.com/helbing/laravel-test-driver-tutorial"
+    },
+    "expandable-chapters-small": {}
+  },
+  "styles": {
+    "website": "styles/website.css"
+  }
+}
