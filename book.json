@@ -1,5 +1,5 @@
 {
-  "title": "laravel 测试驱动教程",
+  "title": "laravel 测试驱动开发教程",
   "author": "helbing",
   "plugins": [
     "katex",
@@ -11,7 +11,7 @@
   ],
   "pluginsConfig": {
     "github": {
-      "url": "https://github.com/helbing/laravel-test-driver-tutorial"
+      "url": "https://github.com/helbing/laravel-test-driver-development-tutorial"
     },
     "expandable-chapters-small": {}
   },
