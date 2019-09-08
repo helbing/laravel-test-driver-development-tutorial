@@ -1,0 +1,23 @@
+
+kind: pipeline
+name: default
+
+steps:
+- name: gitbook build
+  image: node
+  commands:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn config set registry https://registry.npm.taobao.org/
+  - yarn global add gitbook-cli
+  - make build
+
+- name: publish gh-page
+  image: plugins/gh-pages
+  settings:
+    target_branch: gh-pages
+    pages_directory: _book/
+    username:
+      from_secret: github_username
+    password:
+      from_secret: github_password
