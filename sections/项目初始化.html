@@ -180,7 +180,316 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="&#x521D;&#x59CB;&#x5316;&#x9879;&#x76EE;">&#x521D;&#x59CB;&#x5316;&#x9879;&#x76EE;</h2>
+                                <p>&#x9879;&#x76EE;&#x521D;&#x59CB;&#x5316;&#x8FD9;&#x5757;&#x4E0D;&#x5355;&#x5355;&#x8BB2;&#x5B89;&#x88C5; laravel&#xFF0C;&#x8FD8;&#x4F1A;&#x8BB2;&#x4E0B; <a href="https://github.com/tymondesigns/jwt-auth" target="_blank">tymon/jwt-auth</a>&#xFF0C;<a href="https://github.com/barryvdh/laravel-ide-helper" target="_blank">barryvdh/laravel-ide-helper</a>&#xFF0C;<a href="https://github.com/barryvdh/laravel-cors" target="_blank">barryvdh/laravel-cors</a>&#xFF0C;<a href="https://github.com/mewebstudio/Purifier" target="_blank">mews/purifier</a> &#x8FD9;&#x4E9B;&#x5728;&#x9879;&#x76EE;&#x5F00;&#x53D1;&#x5F88;&#x5E38;&#x7528;&#x7684;&#x5305;&#x7684;&#x914D;&#x7F6E;</p>
+<h2 id="&#x5B89;&#x88C5;&#x9879;&#x76EE;">&#x5B89;&#x88C5;&#x9879;&#x76EE;</h2>
+<pre><code class="lang-shell">composer create-project laravel/laravel laravel-test-driver-development
+</code></pre>
+<h2 id="&#x914D;&#x7F6E;-phpcsxml">&#x914D;&#x7F6E; phpcs.xml</h2>
+<pre><code class="lang-shell">composer require --dev squizlabs/php_codesniffer
+</code></pre>
+<p>&#x5728;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x65B0;&#x5EFA; phpcs.xml</p>
+<pre><code class="lang-xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> <span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ruleset</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;helbing-ruleset&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">file</span>&gt;</span>app<span class="hljs-tag">&lt;/<span class="hljs-name">file</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">file</span>&gt;</span>config<span class="hljs-tag">&lt;/<span class="hljs-name">file</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">file</span>&gt;</span>routes<span class="hljs-tag">&lt;/<span class="hljs-name">file</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">file</span>&gt;</span>tests<span class="hljs-tag">&lt;/<span class="hljs-name">file</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">exclude-pattern</span>&gt;</span>*/_ide_helper.php<span class="hljs-tag">&lt;/<span class="hljs-name">exclude-pattern</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">exclude-pattern</span>&gt;</span>vendor/*<span class="hljs-tag">&lt;/<span class="hljs-name">exclude-pattern</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">exclude-pattern</span>&gt;</span>database/*<span class="hljs-tag">&lt;/<span class="hljs-name">exclude-pattern</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">arg</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;report&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;summary&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">arg</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;colors&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">arg</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;p&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ini</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;memory_limit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2048M&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">rule</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;PSR2&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">rule</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;Generic.Files.LineLength&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;lineLimit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;256&quot;</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;absoluteLineLimit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;256&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">rule</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ruleset</span>&gt;</span>
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x6211;&#x4F7F;&#x7528;&#x7684;<a href="https://gist.github.com/helbing/00ebfa491ffffe2fc8a294e072f2a579" target="_blank">&#x914D;&#x7F6E;</a></p>
+<h2 id="&#x914D;&#x7F6E;-ide-helper">&#x914D;&#x7F6E; ide-helper</h2>
+<pre><code class="lang-shell">composer require --dev barryvdh/laravel-ide-helper
+composer require --dev doctrine/dbal
+</code></pre>
+<p>&#x5728; AppServiceProvider.php &#x4E2D;&#x52A0;&#x5165;&#x8FD9;&#x884C;</p>
+<pre><code class="lang-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">if</span> ($this-&gt;app-&gt;environment() !== <span class="hljs-string">&apos;production&apos;</span>) {
+        $this-&gt;app-&gt;register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+    }
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>&#x540C;&#x65F6;&#x5728; composer.json &#x4E2D;&#x58F0;&#x660E;&#x4E0D;&#x5BF9; ide-helper &#x5305;&#x81EA;&#x52A8;&#x53D1;&#x73B0;</p>
+<p>&#x751F;&#x6210;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+<pre><code class="lang-shell">php artisan vendor:publish --provider=&quot;Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider&quot; --tag=config
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x6211;&#x4F7F;&#x7528;&#x7684;&#x914D;&#x7F6E;</p>
+<pre><code class="lang-php"><span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span>(
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Filename &amp; Format
+    |--------------------------------------------------------------------------
+    |
+    | The default filename (without extension) and the format (php or json)
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;filename&apos;</span>  =&gt; <span class="hljs-string">&apos;_ide_helper&apos;</span>,
+    <span class="hljs-string">&apos;format&apos;</span>    =&gt; <span class="hljs-string">&apos;php&apos;</span>,
+
+    <span class="hljs-string">&apos;meta_filename&apos;</span> =&gt; <span class="hljs-string">&apos;.phpstorm.meta.php&apos;</span>,
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Fluent helpers
+    |--------------------------------------------------------------------------
+    |
+    | Set to true to generate commonly used Fluent methods
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;include_fluent&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Write Model Magic methods
+    |--------------------------------------------------------------------------
+    |
+    | Set to false to disable write magic methods of model
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;write_model_magic_where&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Write Eloquent Model Mixins
+    |--------------------------------------------------------------------------
+    |
+    | This will add the necessary DocBlock mixins to the model class
+    | contained in the Laravel Framework. This helps the IDE with
+    | auto-completion.
+    |
+    | Please be aware that this setting changes a file within the /vendor directory.
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;write_eloquent_model_mixins&apos;</span> =&gt; <span class="hljs-keyword">false</span>,
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Helper files to include
+    |--------------------------------------------------------------------------
+    |
+    | Include helper files. By default not included, but can be toggled with the
+    | -- helpers (-H) option. Extra helper files can be included.
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;include_helpers&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+
+    <span class="hljs-string">&apos;helper_files&apos;</span> =&gt; <span class="hljs-keyword">array</span>(
+        base_path() . <span class="hljs-string">&apos;/vendor/laravel/framework/src/Illuminate/Support/helpers.php&apos;</span>,
+    ),
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Model locations to include
+    |--------------------------------------------------------------------------
+    |
+    | Define in which directories the ide-helper:models command should look
+    | for models.
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;model_locations&apos;</span> =&gt; <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">&apos;app&apos;</span>,
+    ),
+
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Extra classes
+    |--------------------------------------------------------------------------
+    |
+    | These implementations are not really extended, but called with magic functions
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;extra&apos;</span> =&gt; <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">&apos;Eloquent&apos;</span> =&gt; <span class="hljs-keyword">array</span>(<span class="hljs-string">&apos;Illuminate\Database\Eloquent\Builder&apos;</span>, <span class="hljs-string">&apos;Illuminate\Database\Query\Builder&apos;</span>),
+        <span class="hljs-string">&apos;Session&apos;</span> =&gt; <span class="hljs-keyword">array</span>(<span class="hljs-string">&apos;Illuminate\Session\Store&apos;</span>),
+    ),
+
+    <span class="hljs-string">&apos;magic&apos;</span> =&gt; <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">&apos;Log&apos;</span> =&gt; <span class="hljs-keyword">array</span>(
+            <span class="hljs-string">&apos;debug&apos;</span>     =&gt; <span class="hljs-string">&apos;Monolog\Logger::addDebug&apos;</span>,
+            <span class="hljs-string">&apos;info&apos;</span>      =&gt; <span class="hljs-string">&apos;Monolog\Logger::addInfo&apos;</span>,
+            <span class="hljs-string">&apos;notice&apos;</span>    =&gt; <span class="hljs-string">&apos;Monolog\Logger::addNotice&apos;</span>,
+            <span class="hljs-string">&apos;warning&apos;</span>   =&gt; <span class="hljs-string">&apos;Monolog\Logger::addWarning&apos;</span>,
+            <span class="hljs-string">&apos;error&apos;</span>     =&gt; <span class="hljs-string">&apos;Monolog\Logger::addError&apos;</span>,
+            <span class="hljs-string">&apos;critical&apos;</span>  =&gt; <span class="hljs-string">&apos;Monolog\Logger::addCritical&apos;</span>,
+            <span class="hljs-string">&apos;alert&apos;</span>     =&gt; <span class="hljs-string">&apos;Monolog\Logger::addAlert&apos;</span>,
+            <span class="hljs-string">&apos;emergency&apos;</span> =&gt; <span class="hljs-string">&apos;Monolog\Logger::addEmergency&apos;</span>,
+        )
+    ),
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Interface implementations
+    |--------------------------------------------------------------------------
+    |
+    | These interfaces will be replaced with the implementing class. Some interfaces
+    | are detected by the helpers, others can be listed below.
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;interfaces&apos;</span> =&gt; <span class="hljs-keyword">array</span>(),
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Support for custom DB types
+    |--------------------------------------------------------------------------
+    |
+    | This setting allow you to map any custom database type (that you may have
+    | created using CREATE TYPE statement or imported using database plugin
+    | / extension to a Doctrine type.
+    |
+    | Each key in this array is a name of the Doctrine2 DBAL Platform. Currently valid names are:
+    | &apos;postgresql&apos;, &apos;db2&apos;, &apos;drizzle&apos;, &apos;mysql&apos;, &apos;oracle&apos;, &apos;sqlanywhere&apos;, &apos;sqlite&apos;, &apos;mssql&apos;
+    |
+    | This name is returned by getName() method of the specific Doctrine/DBAL/Platforms/AbstractPlatform descendant
+    |
+    | The value of the array is an array of type mappings. Key is the name of the custom type,
+    | (for example, &quot;jsonb&quot; from Postgres 9.4) and the value is the name of the corresponding Doctrine2 type (in
+    | our case it is &apos;json_array&apos;. Doctrine types are listed here:
+    | http://doctrine-dbal.readthedocs.org/en/latest/reference/types.html
+    |
+    | So to support jsonb in your models when working with Postgres, just add the following entry to the array below:
+    |
+    | &quot;postgresql&quot; =&gt; array(
+    |       &quot;jsonb&quot; =&gt; &quot;json_array&quot;,
+    |  ),
+    |
+    */</span>
+    <span class="hljs-string">&apos;custom_db_types&apos;</span> =&gt; <span class="hljs-keyword">array</span>(),
+
+    <span class="hljs-comment">/*
+     |--------------------------------------------------------------------------
+     | Support for camel cased models
+     |--------------------------------------------------------------------------
+     |
+     | There are some Laravel packages (such as Eloquence) that allow for accessing
+     | Eloquent model properties via camel case, instead of snake case.
+     |
+     | Enabling this option will support these packages by saving all model
+     | properties as camel case, instead of snake case.
+     |
+     | For example, normally you would see this:
+     |
+     |  * <span class="hljs-doctag">@property</span> \Illuminate\Support\Carbon $created_at
+     |  * <span class="hljs-doctag">@property</span> \Illuminate\Support\Carbon $updated_at
+     |
+     | With this enabled, the properties will be this:
+     |
+     |  * <span class="hljs-doctag">@property</span> \Illuminate\Support\Carbon $createdAt
+     |  * <span class="hljs-doctag">@property</span> \Illuminate\Support\Carbon $updatedAt
+     |
+     | Note, it is currently an all-or-nothing option.
+     |
+     */</span>
+    <span class="hljs-string">&apos;model_camel_case_properties&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Property Casts
+    |--------------------------------------------------------------------------
+    |
+    | Cast the given &quot;real type&quot; to the given &quot;type&quot;.
+    |
+    */</span>
+    <span class="hljs-string">&apos;type_overrides&apos;</span> =&gt; <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">&apos;integer&apos;</span> =&gt; <span class="hljs-string">&apos;int&apos;</span>,
+        <span class="hljs-string">&apos;boolean&apos;</span> =&gt; <span class="hljs-string">&apos;bool&apos;</span>,
+    ),
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Include DocBlocks from classes
+    |--------------------------------------------------------------------------
+    |
+    | Include DocBlocks from classes to allow additional code inspection for
+    | magic methods and properties.
+    |
+    */</span>
+    <span class="hljs-string">&apos;include_class_docblocks&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+
+);
+</code></pre>
+<p>&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x6BCF;&#x6B21;&#x6709;&#x5305;&#x5B89;&#x88C5;&#x90FD;&#x4F1A;&#x81EA;&#x52A8;&#x66F4;&#x65B0; _ide_helper.php&#xFF0C;&#x6240;&#x4EE5;&#x5728; composer.json &#x4E2D;&#x52A0;&#x5165;</p>
+<pre><code class="lang-json"><span class="hljs-string">&quot;scripts&quot;</span>: {
+    <span class="hljs-string">&quot;post-update-cmd&quot;</span>: [
+        <span class="hljs-string">&quot;Illuminate\\Foundation\\ComposerScripts::postUpdate&quot;</span>,
+        <span class="hljs-string">&quot;php artisan ide-helper:generate&quot;</span>,
+        <span class="hljs-string">&quot;php artisan ide-helper:meta&quot;</span>
+    ]
+}
+</code></pre>
+<p>&#x540C;&#x65F6;&#x5C06;&#x7F16;&#x8F91; .gitignore</p>
+<pre><code>_ide_helper.php
+.phpstorm.meta.php
+</code></pre><p>&#x8BA9;&#x751F;&#x6210;&#x7684;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#x4E0D;&#x4F1A;&#x52A0;&#x5165;&#x5230;&#x7248;&#x672C;&#x5E93;&#x4E2D;</p>
+<h2 id="cors-&#x914D;&#x7F6E;">cors &#x914D;&#x7F6E;</h2>
+<pre><code class="lang-shell">composer require barryvdh/laravel-cors
+</code></pre>
+<p>&#x6DFB;&#x52A0; middleware&#xFF0C;&#x7F16;&#x8F91; app/Http/Kernel.php</p>
+<pre><code class="lang-php"><span class="hljs-keyword">protected</span> $middleware = [
+    <span class="hljs-comment">// ...</span>
+    \Barryvdh\Cors\HandleCors::class,
+];
+</code></pre>
+<p>&#x6DFB;&#x52A0;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+<pre><code class="lang-shell">php artisan vendor:publish --provider=&quot;Barryvdh\Cors\ServiceProvider&quot;
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x6211;&#x7684;&#x914D;&#x7F6E;</p>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+    <span class="hljs-comment">/*
+    |--------------------------------------------------------------------------
+    | Laravel CORS
+    |--------------------------------------------------------------------------
+    |
+    | allowedOrigins, allowedHeaders and allowedMethods can be set to array(&apos;*&apos;)
+    | to accept any value.
+    |
+    */</span>
+
+    <span class="hljs-string">&apos;supportsCredentials&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+    <span class="hljs-string">&apos;allowedOrigins&apos;</span> =&gt; [],
+    <span class="hljs-string">&apos;allowedOriginsPatterns&apos;</span> =&gt; [
+        <span class="hljs-string">&apos;/localhost(:\d+)?/&apos;</span>,
+    ],
+    <span class="hljs-string">&apos;allowedHeaders&apos;</span> =&gt; [<span class="hljs-string">&apos;*&apos;</span>],
+    <span class="hljs-string">&apos;allowedMethods&apos;</span> =&gt; [<span class="hljs-string">&apos;*&apos;</span>],
+    <span class="hljs-string">&apos;exposedHeaders&apos;</span> =&gt; [
+        <span class="hljs-string">&apos;Authorization&apos;</span>
+    ],
+    <span class="hljs-string">&apos;maxAge&apos;</span> =&gt; <span class="hljs-number">0</span>,
+
+];
+</code></pre>
+<ul>
+<li>allowedOriginsPatterns &#x662F;&#x914D;&#x7F6E; host &#x7B26;&#x5408;&#x6B63;&#x5219;&#x89C4;&#x5219;&#x7684;&#x4F1A;&#x81EA;&#x52A8;&#x5728;&#x54CD;&#x5E94;&#x5934;&#x4E2D;&#x52A0;&#x5165; cors &#x5934;</li>
+<li>exposedHeaders &#x4E2D;&#x52A0;&#x5165; Authorization &#x4E3B;&#x8981;&#x539F;&#x56E0;&#x4E3A; jwt-auth &#x8FD9;&#x4E2A;&#x5305;&#x52A0;&#x7684;&#xFF0C;&#x540E;&#x9762;&#x4F1A;&#x8BF4;</li>
+</ul>
 
                                 
                                 </section>
@@ -236,7 +545,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"项目初始化","level":"1.3","depth":1,"previous":{"title":"Visual Studio Code 配置","level":"1.2","depth":1,"path":"sections/Visual Studio Code 配置.md","ref":"sections/Visual Studio Code 配置.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","github","search-plus","copy-code-button","expandable-chapters-small","splitter"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/helbing/laravel-test-driver-development-tutorial"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"helbing","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"laravel 测试驱动开发教程","gitbook":"*"},"file":{"path":"sections/项目初始化.md","mtime":"2019-09-08T13:49:56.295Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-08T13:51:35.548Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"项目初始化","level":"1.3","depth":1,"previous":{"title":"Visual Studio Code 配置","level":"1.2","depth":1,"path":"sections/Visual Studio Code 配置.md","ref":"sections/Visual Studio Code 配置.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","github","search-plus","copy-code-button","expandable-chapters-small","splitter"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/helbing/laravel-test-driver-development-tutorial"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"helbing","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"laravel 测试驱动开发教程","gitbook":"*"},"file":{"path":"sections/项目初始化.md","mtime":"2019-09-09T01:02:07.036Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-09T01:03:44.632Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
