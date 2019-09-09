@@ -490,6 +490,121 @@ composer require --dev doctrine/dbal
 <li>allowedOriginsPatterns &#x662F;&#x914D;&#x7F6E; host &#x7B26;&#x5408;&#x6B63;&#x5219;&#x89C4;&#x5219;&#x7684;&#x4F1A;&#x81EA;&#x52A8;&#x5728;&#x54CD;&#x5E94;&#x5934;&#x4E2D;&#x52A0;&#x5165; cors &#x5934;</li>
 <li>exposedHeaders &#x4E2D;&#x52A0;&#x5165; Authorization &#x4E3B;&#x8981;&#x539F;&#x56E0;&#x4E3A; jwt-auth &#x8FD9;&#x4E2A;&#x5305;&#x52A0;&#x7684;&#xFF0C;&#x540E;&#x9762;&#x4F1A;&#x8BF4;</li>
 </ul>
+<h2 id="purifier-&#x914D;&#x7F6E;">purifier &#x914D;&#x7F6E;</h2>
+<pre><code class="lang-shell">composer require mews/purifier
+</code></pre>
+<p>purifier &#x8FD9;&#x4E2A;&#x5305;&#x4E3B;&#x8981;&#x662F;&#x7528;&#x4E8E;&#x9632;&#x5BCC;&#x6587;&#x672C;&#x7684; xss &#x653B;&#x51FB;</p>
+<p>&#x6DFB;&#x52A0;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+<pre><code class="lang-shell">php artisan vendor:publish --provider=&quot;Mews\Purifier\PurifierServiceProvider&quot;
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x6211;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-comment">/**
+ * Ok, glad you are here
+ * first we get a config instance, and set the settings
+ * $config = HTMLPurifier_Config::createDefault();
+ * $config-&gt;set(&apos;Core.Encoding&apos;, $this-&gt;config-&gt;get(&apos;purifier.encoding&apos;));
+ * $config-&gt;set(&apos;Cache.SerializerPath&apos;, $this-&gt;config-&gt;get(&apos;purifier.cachePath&apos;));
+ * if ( ! $this-&gt;config-&gt;get(&apos;purifier.finalize&apos;)) {
+ *     $config-&gt;autoFinalize = false;
+ * }
+ * $config-&gt;loadArray($this-&gt;getConfig());
+ *
+ * You must NOT delete the default settings
+ * anything in settings should be compacted with params that needed to instance HTMLPurifier_Config.
+ *
+ * <span class="hljs-doctag">@link</span> http://htmlpurifier.org/live/configdoc/plain.html
+ */</span>
+
+<span class="hljs-keyword">return</span> [
+    <span class="hljs-string">&apos;encoding&apos;</span>      =&gt; <span class="hljs-string">&apos;UTF-8&apos;</span>,
+    <span class="hljs-string">&apos;finalize&apos;</span>      =&gt; <span class="hljs-keyword">true</span>,
+    <span class="hljs-string">&apos;cachePath&apos;</span>     =&gt; storage_path(<span class="hljs-string">&apos;app/purifier&apos;</span>),
+    <span class="hljs-string">&apos;cacheFileMode&apos;</span> =&gt; <span class="hljs-number">0755</span>,
+    <span class="hljs-string">&apos;settings&apos;</span>      =&gt; [
+        <span class="hljs-string">&apos;default&apos;</span> =&gt; [
+            <span class="hljs-string">&apos;HTML.Doctype&apos;</span> =&gt; <span class="hljs-string">&apos;HTML 4.01 Transitional&apos;</span>,
+            <span class="hljs-string">&apos;HTML.Allowed&apos;</span> =&gt; <span class="hljs-string">&apos;*[class|style|target],div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],pre,blockquote&apos;</span>,
+            <span class="hljs-string">&apos;CSS.AllowedProperties&apos;</span> =&gt; <span class="hljs-string">&apos;font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align&apos;</span>,
+            <span class="hljs-string">&apos;AutoFormat.AutoParagraph&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+            <span class="hljs-string">&apos;AutoFormat.RemoveEmpty&apos;</span> =&gt; <span class="hljs-keyword">true</span>,
+        ],
+        <span class="hljs-string">&apos;test&apos;</span>    =&gt; [
+            <span class="hljs-string">&apos;Attr.EnableID&apos;</span> =&gt; <span class="hljs-string">&apos;true&apos;</span>,
+        ],
+        <span class="hljs-string">&quot;youtube&quot;</span> =&gt; [
+            <span class="hljs-string">&quot;HTML.SafeIframe&quot;</span>      =&gt; <span class="hljs-string">&apos;true&apos;</span>,
+            <span class="hljs-string">&quot;URI.SafeIframeRegexp&quot;</span> =&gt; <span class="hljs-string">&quot;%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%&quot;</span>,
+        ],
+        <span class="hljs-string">&apos;custom_definition&apos;</span> =&gt; [
+            <span class="hljs-string">&apos;id&apos;</span>  =&gt; <span class="hljs-string">&apos;html5-definitions&apos;</span>,
+            <span class="hljs-string">&apos;rev&apos;</span> =&gt; <span class="hljs-number">1</span>,
+            <span class="hljs-string">&apos;debug&apos;</span> =&gt; <span class="hljs-keyword">false</span>,
+            <span class="hljs-string">&apos;elements&apos;</span> =&gt; [
+                <span class="hljs-comment">// http://developers.whatwg.org/sections.html</span>
+                [<span class="hljs-string">&apos;section&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;nav&apos;</span>,     <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;article&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;aside&apos;</span>,   <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;header&apos;</span>,  <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;footer&apos;</span>,  <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+
+                <span class="hljs-comment">// Content model actually excludes several tags, not modelled here</span>
+                [<span class="hljs-string">&apos;address&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;hgroup&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Required: h1 | h2 | h3 | h4 | h5 | h6&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+
+                <span class="hljs-comment">// http://developers.whatwg.org/grouping-content.html</span>
+                [<span class="hljs-string">&apos;figure&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Optional: (figcaption, Flow) | (Flow, figcaption) | Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;figcaption&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+
+                <span class="hljs-comment">// http://developers.whatwg.org/the-video-element.html#the-video-element</span>
+                [<span class="hljs-string">&apos;video&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Optional: (source, Flow) | (Flow, source) | Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>, [
+                    <span class="hljs-string">&apos;src&apos;</span> =&gt; <span class="hljs-string">&apos;URI&apos;</span>,
+                    <span class="hljs-string">&apos;type&apos;</span> =&gt; <span class="hljs-string">&apos;Text&apos;</span>,
+                    <span class="hljs-string">&apos;width&apos;</span> =&gt; <span class="hljs-string">&apos;Length&apos;</span>,
+                    <span class="hljs-string">&apos;height&apos;</span> =&gt; <span class="hljs-string">&apos;Length&apos;</span>,
+                    <span class="hljs-string">&apos;poster&apos;</span> =&gt; <span class="hljs-string">&apos;URI&apos;</span>,
+                    <span class="hljs-string">&apos;preload&apos;</span> =&gt; <span class="hljs-string">&apos;Enum#auto,metadata,none&apos;</span>,
+                    <span class="hljs-string">&apos;controls&apos;</span> =&gt; <span class="hljs-string">&apos;Bool&apos;</span>,
+                ]],
+                [<span class="hljs-string">&apos;source&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>, [
+                    <span class="hljs-string">&apos;src&apos;</span> =&gt; <span class="hljs-string">&apos;URI&apos;</span>,
+                    <span class="hljs-string">&apos;type&apos;</span> =&gt; <span class="hljs-string">&apos;Text&apos;</span>,
+                ]],
+
+                <span class="hljs-comment">// http://developers.whatwg.org/text-level-semantics.html</span>
+                [<span class="hljs-string">&apos;s&apos;</span>,    <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;var&apos;</span>,  <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;sub&apos;</span>,  <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;sup&apos;</span>,  <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;mark&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+                [<span class="hljs-string">&apos;wbr&apos;</span>,  <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Empty&apos;</span>, <span class="hljs-string">&apos;Core&apos;</span>],
+
+                <span class="hljs-comment">// http://developers.whatwg.org/edits.html</span>
+                [<span class="hljs-string">&apos;ins&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>, [<span class="hljs-string">&apos;cite&apos;</span> =&gt; <span class="hljs-string">&apos;URI&apos;</span>, <span class="hljs-string">&apos;datetime&apos;</span> =&gt; <span class="hljs-string">&apos;CDATA&apos;</span>]],
+                [<span class="hljs-string">&apos;del&apos;</span>, <span class="hljs-string">&apos;Block&apos;</span>, <span class="hljs-string">&apos;Flow&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>, [<span class="hljs-string">&apos;cite&apos;</span> =&gt; <span class="hljs-string">&apos;URI&apos;</span>, <span class="hljs-string">&apos;datetime&apos;</span> =&gt; <span class="hljs-string">&apos;CDATA&apos;</span>]],
+            ],
+            <span class="hljs-string">&apos;attributes&apos;</span> =&gt; [
+                [<span class="hljs-string">&apos;iframe&apos;</span>, <span class="hljs-string">&apos;allowfullscreen&apos;</span>, <span class="hljs-string">&apos;Bool&apos;</span>],
+                [<span class="hljs-string">&apos;table&apos;</span>, <span class="hljs-string">&apos;height&apos;</span>, <span class="hljs-string">&apos;Text&apos;</span>],
+                [<span class="hljs-string">&apos;td&apos;</span>, <span class="hljs-string">&apos;border&apos;</span>, <span class="hljs-string">&apos;Text&apos;</span>],
+                [<span class="hljs-string">&apos;th&apos;</span>, <span class="hljs-string">&apos;border&apos;</span>, <span class="hljs-string">&apos;Text&apos;</span>],
+                [<span class="hljs-string">&apos;tr&apos;</span>, <span class="hljs-string">&apos;width&apos;</span>, <span class="hljs-string">&apos;Text&apos;</span>],
+                [<span class="hljs-string">&apos;tr&apos;</span>, <span class="hljs-string">&apos;height&apos;</span>, <span class="hljs-string">&apos;Text&apos;</span>],
+                [<span class="hljs-string">&apos;tr&apos;</span>, <span class="hljs-string">&apos;border&apos;</span>, <span class="hljs-string">&apos;Text&apos;</span>],
+            ],
+        ],
+        <span class="hljs-string">&apos;custom_attributes&apos;</span> =&gt; [
+            [<span class="hljs-string">&apos;a&apos;</span>, <span class="hljs-string">&apos;target&apos;</span>, <span class="hljs-string">&apos;Enum#_blank,_self,_target,_top&apos;</span>],
+        ],
+        <span class="hljs-string">&apos;custom_elements&apos;</span> =&gt; [
+            [<span class="hljs-string">&apos;u&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Inline&apos;</span>, <span class="hljs-string">&apos;Common&apos;</span>],
+        ],
+    ],
+
+];
+</code></pre>
 
                                 
                                 </section>
@@ -545,7 +660,7 @@ composer require --dev doctrine/dbal
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"项目初始化","level":"1.3","depth":1,"previous":{"title":"Visual Studio Code 配置","level":"1.2","depth":1,"path":"sections/Visual Studio Code 配置.md","ref":"sections/Visual Studio Code 配置.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","github","search-plus","copy-code-button","expandable-chapters-small","splitter"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/helbing/laravel-test-driver-development-tutorial"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"helbing","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"laravel 测试驱动开发教程","gitbook":"*"},"file":{"path":"sections/项目初始化.md","mtime":"2019-09-09T01:02:07.036Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-09T01:03:44.632Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"项目初始化","level":"1.3","depth":1,"previous":{"title":"Visual Studio Code 配置","level":"1.2","depth":1,"path":"sections/Visual Studio Code 配置.md","ref":"sections/Visual Studio Code 配置.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","github","search-plus","copy-code-button","expandable-chapters-small","splitter"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"github":{"url":"https://github.com/helbing/laravel-test-driver-development-tutorial"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"helbing","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"laravel 测试驱动开发教程","gitbook":"*"},"file":{"path":"sections/项目初始化.md","mtime":"2019-09-09T01:11:02.429Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-09T01:12:27.464Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
